@@ -1,0 +1,23 @@
+function getWeather() {
+            const city = document.getElementById("cityInput").value;
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9bac8239cb53e4ab3f0964134c774a54&units=metric`)
+                .then(response => response.json())
+                .then(data => {
+                    displayWeather(data);
+                })
+                .catch(error => {
+                    console.log("Error fetching weather data: ", error);
+                });
+        }
+
+        function displayWeather(data) {
+    const weatherInfo = document.getElementById("weatherInfo");
+    weatherInfo.innerHTML = `
+        <h2>${data.name}, ${data.sys.country}</h2>
+        <p>Temperature: ${data.main.temp}°C</p>
+        <p>Description: ${data.weather[0].description}</p>
+        <p>Wind Speed: ${data.wind.speed} m/s</p>
+        <p>Wind Direction: ${data.wind.deg}°</p>
+    `;
+}
